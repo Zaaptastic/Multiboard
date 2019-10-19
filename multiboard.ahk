@@ -1,11 +1,13 @@
 ; Multiboard
 ; Main entry point script
 Multiboard := []
+maxEntries := 10
 
+RWin::
 AppsKey::
 	Gui, Destroy
-	Multiboard.Push(clipboard)
-	; TODO: Resize if necessary, n = 5?
+
+	GoSub addClipboardToMultiboard
 
 	if (Multiboard.Length() = 0) {
 		Msgbox, Multiboard is Empty
@@ -23,6 +25,15 @@ copyFromMultiboard:
 	clipboard := text
 
 	Gui, Destroy
+	Return
+
+; "Multiboard" should be a Set of Strings that we limit the size of
+	; TODO: Also check if the Set already contains the textToAdd
+addClipboardToMultiboard:
+	Multiboard.Push(clipboard)
+	if (Multiboard.Length() > maxEntries) 
+		Multiboard.removeAt(1)
+
 	Return
 
 
