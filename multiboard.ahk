@@ -1,7 +1,9 @@
 ; Multiboard
 ; Main entry point script
 Multiboard := []
-maxEntries := 10
+maxEntries := 5
+maxStringLength := 120
+stringOverflowText := " [...]"
 
 RWin::
 AppsKey::
@@ -13,6 +15,8 @@ AppsKey::
 	; We still need to Destroy the Gui to avoid re-using variables
 	Gui, Destroy
 
+	Gui, Font, s14, Verdana 
+
 	GoSub addClipboardToMultiboard
 
 	if (Multiboard.Length() = 0) {
@@ -20,9 +24,15 @@ AppsKey::
 		Return
 	}
 
-	for index,storedText in Multiboard
-		Gui, Add, Button, v%index% gcopyFromMultiboard, %storedText%
+	for index,storedText in Multiboard {
+		displayText := storedText
+		if (StrLen(displayText) > maxStringLength) {
+			displayText := SubStr(displayText, 1, maxStringLength) 
+			displayText = %displayText%%stringOverflowText%
+		}
 
+		Gui, Add, Button, v%index% gcopyFromMultiboard, %displayText%
+	}
 	Gui, Show, , Multiboard
 	Return
 
