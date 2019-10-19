@@ -10,6 +10,9 @@ AppsKey::
 		Return
 	}
 
+	; We still need to Destroy the Gui to avoid re-using variables
+	Gui, Destroy
+
 	GoSub addClipboardToMultiboard
 
 	if (Multiboard.Length() = 0) {
