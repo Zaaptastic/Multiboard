@@ -28,8 +28,12 @@ copyFromMultiboard:
 	Return
 
 ; "Multiboard" should be a Set of Strings that we limit the size of
-	; TODO: Also check if the Set already contains the textToAdd
 addClipboardToMultiboard:
+	for index,storedText in Multiboard {
+		if (storedText = clipboard)
+			Return
+	}
+
 	Multiboard.Push(clipboard)
 	if (Multiboard.Length() > maxEntries) 
 		Multiboard.removeAt(1)
