@@ -5,7 +5,10 @@ maxEntries := 10
 
 RWin::
 AppsKey::
-	Gui, Destroy
+	if WinExist("Multiboard") {
+		Gui, Destroy
+		Return
+	}
 
 	GoSub addClipboardToMultiboard
 
@@ -17,7 +20,7 @@ AppsKey::
 	for index,storedText in Multiboard
 		Gui, Add, Button, v%index% gcopyFromMultiboard, %storedText%
 
-	Gui, Show
+	Gui, Show, , Multiboard
 	Return
 
 copyFromMultiboard:
