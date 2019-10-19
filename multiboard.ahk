@@ -31,7 +31,7 @@ AppsKey::
 			displayText = %displayText%%stringOverflowText%
 		}
 
-		Gui, Add, Button, v%index% gcopyFromMultiboard, %displayText%
+		Gui, Add, Button, v%index% gcopyFromMultiboard left, %displayText%
 	}
 	Gui, Show, , Multiboard
 	Return
